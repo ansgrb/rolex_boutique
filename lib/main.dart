@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Rolex Boutique',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade900),
+        scaffoldBackgroundColor: const Color(0xFFEEE9E3), // Alabaster
       ),
-      home: SplashPage(),
+      home: const SplashPage(),
     );
   }
 }

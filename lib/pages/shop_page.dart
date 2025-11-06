@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:rolex_boutique/components/item_tile.dart';
+import 'package:rolex_boutique/data/watch_data.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
@@ -8,23 +12,63 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
+  late PageController _pageController;
+  double _currentPage = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(viewportFraction: 0.75, initialPage: 0);
+    _pageController.addListener(() {
+      setState(() {
+        if (_pageController.page != null) {
+          _currentPage = _pageController.page!;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.symmetric(horizontal: 25),
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(12),
+        // Title
+        const Padding(
+          padding: EdgeInsets.only(left: 25.0, top: 25, bottom: 10),
+          child: Text(
+            'Our Collections',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 28,
+              color: Color(0xFF4A4A4A),
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text("Search", style: TextStyle(color: Colors.grey)),
-              Icon(Icons.search, color: Colors.grey),
-            ],
+        ),
+
+        // Immersive Carousel
+        Expanded(
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: watchShop.length,
+            itemBuilder: (context, index) {
+              double scale = max(0.8, 1 - (_currentPage - index).abs() * 0.2);
+              double opacity = max(0.7, 1 - (_currentPage - index).abs() * 0.3);
+
+              return Transform.scale(
+                scale: scale,
+                child: Opacity(
+                  opacity: opacity,
+                  child: ItemTile(item: watchShop[index]),
+                ),
+              );
+            },
           ),
         ),
       ],
