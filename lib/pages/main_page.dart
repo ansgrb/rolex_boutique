@@ -82,7 +82,7 @@ class _MainPageState extends State<MainPage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 25.0),
+              padding: const EdgeInsets.only(left: 25.0, bottom: 25.0),
               child: ListTile(
                 leading: Icon(Icons.logout, color: Colors.white),
                 title: Text("Logout", style: TextStyle(color: Colors.white)),

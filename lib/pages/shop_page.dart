@@ -10,6 +10,24 @@ class ShopPage extends StatefulWidget {
 class _ShopPageState extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Shop"));
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          margin: const EdgeInsets.symmetric(horizontal: 25),
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text("Search", style: TextStyle(color: Colors.grey)),
+              Icon(Icons.search, color: Colors.grey),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
