@@ -28,7 +28,7 @@ class _CartItemState extends State<CartItem> {
         borderRadius: BorderRadius.circular(12.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey.withAlpha((255 * 0.2).round()),
             spreadRadius: 2,
             blurRadius: 8,
             offset: const Offset(0, 3), // changes position of shadow

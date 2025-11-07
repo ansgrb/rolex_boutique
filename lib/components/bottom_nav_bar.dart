@@ -9,31 +9,29 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: GNav(
-          tabs: [
-            const GButton(icon: Icons.home, text: "Shop"),
-            GButton(
-              icon: Icons.shopping_bag,
-              text: "Cart",
-              leading: context.watch<Cart>().userCart.isEmpty
-                  ? null
-                  : Badge(
-                      label: Text(context.watch<Cart>().totalItemsInCart.toString()),
-                      child: const Icon(Icons.shopping_bag),
-                    ),
-            ),
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
-          color: Colors.grey[400],
-          tabBorderRadius: 25,
-          activeColor: Colors.grey.shade700,
-          tabActiveBorder: Border.all(color: Colors.white),
-          tabBackgroundColor: Colors.grey.shade100,
-          onTabChange: (value) => onTabChange!(value),
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: GNav(
+        tabs: [
+          const GButton(icon: Icons.home, text: "Shop"),
+          GButton(
+            icon: Icons.shopping_bag,
+            text: "Cart",
+            leading: context.watch<Cart>().userCart.isEmpty
+                ? null
+                : Badge(
+                    label: Text(context.watch<Cart>().totalItemsInCart.toString()),
+                    child: const Icon(Icons.shopping_bag),
+                  ),
+          ),
+        ],
+        mainAxisAlignment: MainAxisAlignment.center,
+        color: Colors.grey[400],
+        tabBorderRadius: 25,
+        activeColor: Colors.grey.shade700,
+        tabActiveBorder: Border.all(color: Colors.white),
+        tabBackgroundColor: Colors.grey.shade100,
+        onTabChange: (value) => onTabChange!(value),
       ),
     );
   }

@@ -5,12 +5,13 @@ import 'package:rolex_boutique/components/search_delegate.dart';
 import 'package:rolex_boutique/data/watch_data.dart';
 import 'package:rolex_boutique/pages/cart_page.dart';
 import 'package:flutter/services.dart';
+import 'package:rolex_boutique/components/auth_drawer_section.dart';
 import 'package:rolex_boutique/pages/shop_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
-
-  @override
+  
+    @override
   State<MainPage> createState() => _MainPageState();
 }
 
@@ -111,13 +112,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 25.0, bottom: 25.0),
-                child: ListTile(
-                  leading: Icon(Icons.logout, color: Colors.white),
-                  title: Text("Logout", style: TextStyle(color: Colors.white)),
-                ),
-              ),
+              const AuthDrawerSection(),
             ],
           ),
         ),

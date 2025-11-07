@@ -111,6 +111,8 @@ class _AddToCartButtonState extends State<AddToCartButton> {
     loadingProvider.showLoading();
     await Future.delayed(const Duration(milliseconds: 500));
 
+    if (!mounted) return;
+
     HapticFeedback.mediumImpact();
     context.read<Cart>().addItemToCart(widget.item);
 

@@ -69,6 +69,7 @@ class GetStartedPage extends StatelessWidget {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     await prefs.setBool('seen', true);
+                    if (!context.mounted) return;
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => const MainPage()),

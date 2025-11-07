@@ -43,3 +43,45 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# Android related
+.gradle
+/local.properties
+/.idea/
+/captures/
+/google-services.json
+/google-service --- IGNORE ---
+
+
+// vscode settings
+settings.json
+launch.json
+tasks.json
+extensions.json
+# Visual Studio Code related        
+.vscode/
+*.code-workspace
+# Keystore files
+*.jks
+*.keystore
+# Google services configuration file
+google-services.json
+# Flutter generated files
+**/GeneratedPluginRegistrant.java
+**/GeneratedPluginRegistrant.*
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/flutter_export_environment.sh
+# iOS related
+**/Pods/
+**/Runner.xcworkspace/
+**/Flutter/Flutter.framework/
+**/Flutter/Flutter.podspec
+**/ServiceDefinitions.json
+# Xcode related
+**/xcuserdata/
+**/DerivedData/
+**/build/
+**/*.xcuserstate        

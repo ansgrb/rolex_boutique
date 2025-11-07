@@ -27,7 +27,7 @@ class ItemTile extends StatelessWidget {
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  Colors.black.withOpacity(0.15),
+                  Colors.black.withAlpha((255 * 0.15).round()),
                   Colors.transparent,
                 ],
                 stops: const [0.4, 1.0],

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -5,11 +6,13 @@ import 'package:rolex_boutique/models/cart.dart';
 import 'package:rolex_boutique/models/loading_provider.dart';
 import 'package:rolex_boutique/pages/get_started.dart';
 import 'package:rolex_boutique/pages/main_page.dart';
+import 'package:rolex_boutique/services/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
@@ -22,6 +25,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => Cart()),
         ChangeNotifierProvider(create: (context) => LoadingProvider()),
       ],
@@ -61,7 +65,7 @@ class MyApp extends StatelessWidget {
               builder: (context, loadingProvider, _) {
                 if (loadingProvider.isLoading) {
                   return Container(
-                    color: Colors.black.withOpacity(0.7),
+                    color: Colors.black.withAlpha((255 * 0.7).round()),
                     child: Center(
                       child: LoadingAnimationWidget.fourRotatingDots(
                         color: const Color(0xFFcaa94a),
