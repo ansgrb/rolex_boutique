@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rolex_boutique/models/cart.dart';
 import 'package:rolex_boutique/models/loading_provider.dart';
@@ -9,6 +10,12 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+      statusBarBrightness: Brightness.light, // For iOS (dark icons)
+    ),
+  );
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool seen = prefs.getBool('seen') ?? false;
@@ -30,6 +37,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFFEEE9E3),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFEEE9E3),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarIconBrightness:
+                Brightness.dark, // For Android (dark icons)
+            statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          ),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       title: "Rolex Boutique",
       home: seen ? const MainPage() : const GetStartedPage(),

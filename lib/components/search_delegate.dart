@@ -11,11 +11,6 @@ class WatchSearchDelegate extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
       scaffoldBackgroundColor: const Color(0xFFEEE9E3),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Color(0xFFEEE9E3),
-        elevation: 0,
-        scrolledUnderElevation: 0,
-      ),
       inputDecorationTheme: const InputDecorationTheme(
         border: InputBorder.none,
         hintStyle: TextStyle(color: Colors.grey),

@@ -38,6 +38,7 @@ class _MainPageState extends State<MainPage> {
         statusBarBrightness: Brightness.light, // For iOS
       ),
       child: Scaffold(
+        // backgroundColor: Color(0xFFEEE9E3),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
