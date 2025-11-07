@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:rolex_boutique/models/cart.dart';
 
 class BottomNavBar extends StatelessWidget {
   final void Function(int)? onTabChange;
@@ -11,9 +13,18 @@ class BottomNavBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: GNav(
-          tabs: const [
-            GButton(icon: Icons.home, text: "Shop"),
-            GButton(icon: Icons.shopping_bag, text: "Cart"),
+          tabs: [
+            const GButton(icon: Icons.home, text: "Shop"),
+            GButton(
+              icon: Icons.shopping_bag,
+              text: "Cart",
+              leading: context.watch<Cart>().userCart.isEmpty
+                  ? null
+                  : Badge(
+                      label: Text(context.watch<Cart>().totalItemsInCart.toString()),
+                      child: const Icon(Icons.shopping_bag),
+                    ),
+            ),
           ],
           mainAxisAlignment: MainAxisAlignment.center,
           color: Colors.grey[400],
