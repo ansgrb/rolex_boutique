@@ -10,22 +10,24 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 30),
       child: GNav(
         tabs: [
-          const GButton(icon: Icons.home, text: "Shop"),
+          const GButton(icon: Icons.home_rounded, text: "Shop"),
           GButton(
             icon: Icons.shopping_bag,
             text: "Cart",
             leading: context.watch<Cart>().userCart.isEmpty
                 ? null
                 : Badge(
-                    label: Text(context.watch<Cart>().totalItemsInCart.toString()),
-                    child: const Icon(Icons.shopping_bag),
+                    label: Text(
+                      context.watch<Cart>().totalItemsInCart.toString(),
+                    ),
+                    child: const Icon(Icons.shopping_bag_rounded),
                   ),
           ),
         ],
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         color: Colors.grey[400],
         tabBorderRadius: 25,
         activeColor: Colors.grey.shade700,

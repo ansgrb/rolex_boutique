@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rolex_boutique/components/search_result_tile.dart';
 import 'package:rolex_boutique/models/item.dart';
-import 'package:rolex_boutique/pages/item_details_page.dart';
 
 class WatchSearchDelegate extends SearchDelegate {
   final List<Item> searchItems;
@@ -46,21 +46,16 @@ class WatchSearchDelegate extends SearchDelegate {
         .where((item) => item.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
+    if (results.isEmpty) {
+      return const Center(
+        child: Text('No results found.'),
+      );
+    }
+
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(results[index].name),
-          onTap: () {
-            close(context, null);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ItemDetailsPage(item: results[index]),
-              ),
-            );
-          },
-        );
+        return SearchResultTile(item: results[index]);
       },
     );
   }
@@ -71,16 +66,16 @@ class WatchSearchDelegate extends SearchDelegate {
         .where((item) => item.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
+    if (suggestions.isEmpty && query.isNotEmpty) {
+      return const Center(
+        child: Text('No suggestions found.'),
+      );
+    }
+
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(suggestions[index].name),
-          onTap: () {
-            query = suggestions[index].name;
-            showResults(context);
-          },
-        );
+        return SearchResultTile(item: suggestions[index]);
       },
     );
   }
