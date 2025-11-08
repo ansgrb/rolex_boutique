@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:rolex_boutique/components/bottom_nav_bar.dart';
 import 'package:rolex_boutique/components/search_delegate.dart';
 import 'package:rolex_boutique/data/watch_data.dart';
+import 'package:rolex_boutique/pages/about_page.dart';
 import 'package:rolex_boutique/pages/cart_page.dart';
 import 'package:flutter/services.dart';
 import 'package:rolex_boutique/components/auth_drawer_section.dart';
@@ -10,8 +11,8 @@ import 'package:rolex_boutique/pages/shop_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
-  
-    @override
+
+  @override
   State<MainPage> createState() => _MainPageState();
 }
 
@@ -86,28 +87,52 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
 
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  //   child: Divider(color: Colors.grey[800]),
-                  // ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 25.0),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25.0),
                     child: ListTile(
-                      leading: Icon(Icons.home, color: Colors.white),
-                      title: Text(
+                      leading: const Icon(Icons.home, color: Colors.white),
+                      title: const Text(
                         "Home",
                         style: TextStyle(color: Colors.white),
                       ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        bottomBarNavigator(0);
+                      },
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 25.0),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25.0),
                     child: ListTile(
-                      leading: Icon(Icons.info, color: Colors.white),
-                      title: Text(
+                      leading:
+                          const Icon(Icons.shopping_cart, color: Colors.white),
+                      title: const Text(
+                        "Cart",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        bottomBarNavigator(1);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: const Icon(Icons.info, color: Colors.white),
+                      title: const Text(
                         "About",
                         style: TextStyle(color: Colors.white),
                       ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AboutPage(),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
