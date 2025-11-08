@@ -21,20 +21,6 @@ class ItemTile extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Cinematic Shadow
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: RadialGradient(
-                colors: [
-                  Colors.black.withAlpha((255 * 0.15).round()),
-                  Colors.transparent,
-                ],
-                stops: const [0.4, 1.0],
-              ),
-            ),
-          ),
-
           // Watch Image (Bigger)
           Padding(
             padding: const EdgeInsets.all(30.0),
