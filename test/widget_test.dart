@@ -1,30 +1,33 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:rolex_boutique/main.dart';
+import 'package:rolex_boutique/app/app.dart';
+import 'package:rolex_boutique/app/presentation/screens/get_started_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:rolex_boutique/app/presentation/manager/loading_provider.dart';
+import 'package:rolex_boutique/features/auth/presentation/manager/auth_provider.dart';
+import 'package:rolex_boutique/features/cart/presentation/manager/cart_provider.dart';
+import 'package:rolex_boutique/features/shop/presentation/manager/shop_provider.dart';
+import 'package:rolex_boutique/core/di/injection_container.dart' as di;
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Renders GetStartedScreen when not seen',
+      (WidgetTester tester) async {
+    // Set up the dependency injection container.
+    await di.init();
+
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp(seen: true));
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
+          ChangeNotifierProvider(create: (context) => di.sl<CartProvider>()),
+          ChangeNotifierProvider(create: (context) => di.sl<LoadingProvider>()),
+          ChangeNotifierProvider(create: (context) => di.sl<ShopProvider>()),
+        ],
+        child: const MyApp(seen: false),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that GetStartedScreen is shown.
+    expect(find.byType(GetStartedScreen), findsOneWidget);
   });
 }

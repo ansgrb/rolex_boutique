@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:rolex_boutique/app/presentation/manager/loading_provider.dart';
+import 'package:rolex_boutique/app/presentation/screens/get_started_screen.dart';
+import 'package:rolex_boutique/app/presentation/screens/main_screen.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+class MyApp extends StatelessWidget {
+  final bool seen;
+  const MyApp({super.key, required this.seen});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFFEEE9E3),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFEEE9E3),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarIconBrightness:
+                Brightness.dark, // For Android (dark icons)
+            statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          ),
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
+      title: "Rolex Boutique",
+      home: seen ? const MainScreen() : const GetStartedScreen(),
+      builder: (context, child) {
+        return Stack(
+          children: [
+            child!,
+            Consumer<LoadingProvider>(
+              builder: (context, loadingProvider, _) {
+                if (loadingProvider.isLoading) {
+                  return Container(
+                    color: Colors.black.withAlpha((255 * 0.7).round()),
+                    child: Center(
+                      child: LoadingAnimationWidget.fourRotatingDots(
+                        color: const Color(0xFFcaa94a),
+                        size: 50,
+                      ),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

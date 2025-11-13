@@ -2,17 +2,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:rolex_boutique/models/cart.dart';
-import 'package:rolex_boutique/models/loading_provider.dart';
-import 'package:rolex_boutique/pages/get_started.dart';
-import 'package:rolex_boutique/pages/main_page.dart';
-import 'package:rolex_boutique/services/auth_service.dart';
+import 'package:rolex_boutique/app/app.dart';
+import 'package:rolex_boutique/features/cart/presentation/manager/cart_provider.dart';
+import 'package:rolex_boutique/app/presentation/manager/loading_provider.dart';
+import 'package:rolex_boutique/features/auth/presentation/manager/auth_provider.dart';
+import 'package:rolex_boutique/features/shop/presentation/manager/shop_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:rolex_boutique/core/di/injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await di.init();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
@@ -25,61 +26,12 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AuthService()),
-        ChangeNotifierProvider(create: (context) => Cart()),
-        ChangeNotifierProvider(create: (context) => LoadingProvider()),
+        ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
+        ChangeNotifierProvider(create: (context) => di.sl<CartProvider>()),
+        ChangeNotifierProvider(create: (context) => di.sl<LoadingProvider>()),
+        ChangeNotifierProvider(create: (context) => di.sl<ShopProvider>()),
       ],
       child: MyApp(seen: seen),
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
-  final bool seen;
-  const MyApp({super.key, required this.seen});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFEEE9E3),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFEEE9E3),
-          elevation: 0,
-          scrolledUnderElevation: 0,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness:
-                Brightness.dark, // For Android (dark icons)
-            statusBarBrightness: Brightness.light, // For iOS (dark icons)
-          ),
-        ),
-      ),
-      debugShowCheckedModeBanner: false,
-      title: "Rolex Boutique",
-      home: seen ? const MainPage() : const GetStartedPage(),
-      builder: (context, child) {
-        return Stack(
-          children: [
-            child!,
-            Consumer<LoadingProvider>(
-              builder: (context, loadingProvider, _) {
-                if (loadingProvider.isLoading) {
-                  return Container(
-                    color: Colors.black.withAlpha((255 * 0.7).round()),
-                    child: Center(
-                      child: LoadingAnimationWidget.fourRotatingDots(
-                        color: const Color(0xFFcaa94a),
-                        size: 50,
-                      ),
-                    ),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
